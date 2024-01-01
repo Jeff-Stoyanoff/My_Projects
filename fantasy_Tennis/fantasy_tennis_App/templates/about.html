@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h1>Welcome to the About Page</h1>
+    <p>Some other stuff will appear here</p>
+
+    <form action="/createPlayer" method="post">
+        {% csrf_token %}
+        <h2>Create a Player</h2>
+        <label for="name">Name: </label>
+        <input type="text" name="name" id="name">
+        <label for="rank">Ranking: </label>
+        <input type="number" name="rank" id="rank">
+        <label for="cost">Cost: </label>
+        <input type="number" name="cost" id="cost">
+        <label for="about">About: </label>
+        <input type="text" name="about" id="about">
+        <input type="Submit" value="AddPlayer">
+    </form>
+
+    <form action="/createTournament" method="post">
+        {% csrf_token %}
+        <h2>Create a Tournament</h2>
+        <label for="name">Name: </label>
+        <input type="text" name="name" id="name">
+        <label for="budget">Budget: </label>
+        <input type="number" name="budget" id="budget">
+        <input type="Submit" value="AddTournament">
+    </form>
+
+    <form action="/deleteButton" method="post">
+        {% csrf_token %}
+        <h2>Enter Player Name to Delete</h2>
+        <select name="name" id="name">
+            <option value="">Player</option>
+            {% for player in db_players %}
+                <option value="{{ player.name }}">{{ player.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="Submit" value="DeletePlayer">
+    </form>
+
+    {% for player in db_players %}
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <h3><a class="mr-3" href="#">{{ player.name }}</a></h3>
+                    <medium class="text-muted">Ranking:  {{ player.rank }}</medium>
+                    <medium class="text-muted">Cost:  {{ player.cost }}</medium>
+                </div>
+                <h4><a class="article-title" href="#">{{ player.about }}</a></h4>
+                <p class="article-content">{{ player.status }}</p>
+            </div>
+        </article>
+
+    {% endfor %}
+
+    
+{% endblock content %}
+
+
+

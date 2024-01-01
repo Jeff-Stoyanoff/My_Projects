@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Welcome to the Home Page</h1>
+  <p>This is the Fantasy Tennis Project</p>
+
+  {% for player in db_players %}
+  <article class="media content-section">
+      <div class="media-body">
+          <div class="article-metadata">
+              <h3><a class="mr-3" href="#">{{ player.name }}</a></h3>
+              <medium class="text-muted">Ranking:  {{ player.rank }}</medium>
+          </div>
+          <h4><a class="article-title" href="#">{{ player.about }}</a></h4>
+          <p class="article-content">{{ player.status }}</p>
+      </div>
+  </article>
+
+{% endfor %}
+{% endblock content %}

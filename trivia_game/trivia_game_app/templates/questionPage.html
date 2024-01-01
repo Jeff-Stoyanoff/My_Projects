@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <a href="/gamePage">Go to Game Page</a>
+    <h1>Welcome to the Question Page!</h1>
+
+    <form action="/createQuestion" method="post">
+        {% csrf_token %}
+        <label for="text">Text: </label>
+        <input type="text" name="text" id="text"><br>
+        <label for="answer">Answer: </label>
+        <input type="text" name="answer" id="answer"><br>
+        <label for="category">Category: </label>
+        <input type="text" name="category" id="category"><br>
+        <label for="level">Level: </label>
+        <input type="number" name="level" id="level"><br>
+        <label for="asked">Asked: </label>
+        <input type="checkbox" name="asked" id="asked"><br>
+        <input type="submit" value="createQuestion">
+    </form>
+
+    <!-- questionPage.html -->
+
+    {% for category, questions in questions_by_category.items %}
+        <h2>{{ category }}</h2>
+        <ul>
+            {% for question in questions %}
+                <li>(Question): {{ question.text }} (Level): {{ question.level }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+
+
+
+</body>
+</html>
